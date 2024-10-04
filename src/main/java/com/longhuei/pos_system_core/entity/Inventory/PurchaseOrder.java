@@ -13,14 +13,12 @@ import com.longhuei.pos_system_core.entity.enums.PurchaseOrderStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Table(schema = "Inventory", name = "PurchaseOrder")
 public class PurchaseOrder extends Order{
     @Enumerated(EnumType.STRING)
     private PaymentTerm paymentTerm;

@@ -12,7 +12,6 @@ public class ApplicationException extends RuntimeException {
     private String message;
 
     public ApplicationException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
     }
