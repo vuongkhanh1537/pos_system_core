@@ -1,11 +1,11 @@
 package com.longhuei.pos_system_core.entity.Inventory;
 
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.longhuei.pos_system_core.entity.enums.Currency;
 import com.longhuei.pos_system_core.entity.enums.GoodsStatus;
 import com.longhuei.pos_system_core.entity.enums.ReturnOrderStatus;
 
