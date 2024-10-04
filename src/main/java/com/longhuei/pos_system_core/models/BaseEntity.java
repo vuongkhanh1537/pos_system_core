@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @MappedSuperclass
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public abstract class BaseEntity extends AuditableEntity {
     
     protected String remark;
