@@ -12,7 +12,8 @@ public enum ErrorCode {
     USER_NOT_EXISTED(1005, "User not existed"),
     UNAUTHENTICATED(1006, "Unauthenticated"),
     PRODUCT_CODE_NOT_EXISTED(1007, "Product code is not exist"),
-    PRODUCT_NOT_EXISTED(1008, "Product not existed");
+    PRODUCT_NOT_EXISTED(1008, "Product not existed"),
+    WAREHOUSE_NOT_EXISTED(1009, "Warehouse not existed");
 
     ErrorCode(int code, String message) {
         this.code = code;
