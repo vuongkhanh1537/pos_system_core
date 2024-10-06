@@ -13,11 +13,13 @@ import com.longhuei.pos_system_core.modules.product.dto.ProductCreateRequest;
 import com.longhuei.pos_system_core.modules.product.dto.ProductUpdateRequest;
 import com.longhuei.pos_system_core.utils.EntryService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(EntryService.PREFIX_PRODUCT)
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class ProductController {
     private final ProductService productService;
 
