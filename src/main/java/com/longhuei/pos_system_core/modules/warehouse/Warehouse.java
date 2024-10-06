@@ -1,4 +1,4 @@
-package com.longhuei.pos_system_core.entity;
+package com.longhuei.pos_system_core.modules.warehouse;
 
 import com.longhuei.pos_system_core.models.BaseEntity;
 

@@ -3,7 +3,6 @@ package com.longhuei.pos_system_core.modules.warehouse;
 import org.springframework.stereotype.Service;
 
 import com.longhuei.pos_system_core.dto.BaseResponse;
-import com.longhuei.pos_system_core.entity.Warehouse;
 import com.longhuei.pos_system_core.exception.ApplicationException;
 import com.longhuei.pos_system_core.exception.ErrorCode;
 import com.longhuei.pos_system_core.modules.warehouse.dto.WarehouseCreateDTO;

@@ -1,13 +1,10 @@
 package com.longhuei.pos_system_core.modules.warehouse.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class WarehouseUpdateDTO {
-    private String nameEN;
-    private String nameCHT;
-    private String personInChargeEN;
-    private String personInChargeCHT;
-    private String address;
-    private String remark;
+@EqualsAndHashCode(callSuper   = true)
+public class WarehouseUpdateDTO extends WarehouseCreateDTO {
+
 }
