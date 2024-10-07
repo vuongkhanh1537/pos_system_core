@@ -10,6 +10,13 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -34,24 +41,40 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {"/api/v1/auth/login", "/api/v1/auth/logout", "/api/v1/product/create"};
 
     @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        config.addAllowedOrigin("*");
+        config.setExposedHeaders(Collections.singletonList("Authorization,Link,X-Total-Count"));
+        config.setAllowCredentials(false);
+        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
+            source.registerCorsConfiguration("/api/v1/**", config);
+            source.registerCorsConfiguration("/v2/api-docs", config);
+        }
+        return new CorsFilter(source);
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-             
+
         http.csrf(AbstractHttpConfigurer::disable);
 
-        http.authorizeHttpRequests(req -> 
-            req
-            .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-            .requestMatchers(SWAGGER_WHITELIST).permitAll()
-            .anyRequest().authenticated()
-        );
-        
-        // http.authorizeHttpRequests(req -> 
-        //     req
-        //     .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-        //     .requestMatchers(SWAGGER_WHITELIST).permitAll()
-        //     .anyRequest().permitAll()
-        // );
+//        http.authorizeHttpRequests(req ->
+//            req
+//            .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+//            .requestMatchers(SWAGGER_WHITELIST).permitAll()
+//            .anyRequest().authenticated()
+//        );
 
-        return http.build(); 
+         http.authorizeHttpRequests(req ->
+             req
+             .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+             .requestMatchers(SWAGGER_WHITELIST).permitAll()
+             .anyRequest().permitAll()
+         );
+
+        return http.build();
     }
 }
