@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-
+    NOT_FOUND(1000, "Not found"),
     INVALID_KEY(1001, "Uncategorized error"),
     USER_EXISTED(1002, "User existed"),
     USERNAME_INVALID(1003, "Username must be at least characters"),
