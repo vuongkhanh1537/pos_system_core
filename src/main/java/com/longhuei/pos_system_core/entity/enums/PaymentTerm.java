@@ -1,5 +1,0 @@
-package com.longhuei.pos_system_core.entity.enums;
-
-public enum PaymentTerm {
-    TRANSFER, CASH
-}
