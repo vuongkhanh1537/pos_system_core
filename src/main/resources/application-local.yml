@@ -3,13 +3,20 @@ server:
   servlet:
     context-path: /api/v1
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
+
 spring:
   application:
-    name: POS
+    name: POS_SYSTEM
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:sqlserver://127.0.0.1:1433;databaseName=POS_SYSTEM;trustServerCertificate=true
+    username: kian_vuong
+    password: 123456
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
@@ -27,3 +34,6 @@ spring-docs:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+jwt:
+  signerKey: "2zGEmxpC8poIcqn5FteEczdjBxl3JcvBwOOQ2iQJ6ZZJc++NyrZXZaRw/mjZ8X5D"
