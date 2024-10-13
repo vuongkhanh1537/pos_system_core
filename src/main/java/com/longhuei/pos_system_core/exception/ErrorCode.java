@@ -15,7 +15,10 @@ public enum ErrorCode {
     PRODUCT_NOT_EXISTED(1008, "Product not existed"),
     WAREHOUSE_NOT_EXISTED(1009, "Warehouse not existed"),
     SUPPLIER_NOT_EXISTED(1010, "Supplier not existed"),
-    SALER_NOT_EXISTED(1011, "Saler not existed");
+    SALER_NOT_EXISTED(1011, "Saler not existed"),
+    CLIENT_NOT_EXISTED(1012, "Client not existed"),
+    DELIVERY_ADDR_NOT_EXISTED(1013, "Delivery address not existed"),
+    ;
 
     ErrorCode(int code, String message) {
         this.code = code;
