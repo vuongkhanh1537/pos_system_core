@@ -19,4 +19,8 @@ public class ApplicationException extends RuntimeException {
     public ApplicationException(int code) {
         this.code = code;
     }
+
+    public ApplicationException(String message) {
+        this.message = message;
+    }
 }

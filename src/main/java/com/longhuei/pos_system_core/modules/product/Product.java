@@ -9,6 +9,7 @@ import com.longhuei.pos_system_core.modules.productCodeGen.models.Graphic;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Label;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Model;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Size;
+import com.longhuei.pos_system_core.utils.enums.ProductStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Product extends BaseEntity {
     @Id
-    private String productID;
+    private String productCode;
     private String productName;
     private String modelType;
     private String colorType;
@@ -33,7 +34,7 @@ public class Product extends BaseEntity {
     private String barCode;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ProductStatus status;
     
     private LocalDate stopDate;
     private LocalDate resumeDate;
@@ -63,8 +64,4 @@ public class Product extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graphic_code")
     private Graphic graphicCode;
-
-    enum Status {
-        IN_USE, STOPPED
-    }
 }

@@ -8,11 +8,14 @@ import com.longhuei.pos_system_core.exception.ErrorCode;
 import com.longhuei.pos_system_core.modules.productCodeGen.dto.GenericDto;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
+@Slf4j
 public abstract class GenericServiceImpl<E extends GenericEntity, D extends GenericDto> implements GenericService<D> {
     protected final GenericRepository<E> repository;
     protected final GenericMapper<E, D> mapper;
+    protected E object;
 
     @Override
     public BaseResponse<?> create(D dto) {
@@ -46,5 +49,10 @@ public abstract class GenericServiceImpl<E extends GenericEntity, D extends Gene
         List<D> dtos = entities.stream().map(entity -> mapper.toDto(entity)).toList();
         response.setWsResponse(dtos);
         return response;
+    }
+
+    public E findById(String code) {
+        return repository.findById(code)
+            .orElseThrow(() -> new ApplicationException(object.getClass().getSimpleName() + " not found"));
     }
 }
