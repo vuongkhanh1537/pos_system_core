@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -51,11 +52,10 @@ public class SecurityConfig {
         config.setAllowedHeaders(Collections.singletonList("*"));
         config.setAllowedMethods(Collections.singletonList("*"));
         config.addAllowedOrigin("*");
-        config.setExposedHeaders(Collections.singletonList("Authorization,Link,X-Total-Count"));
+        config.setExposedHeaders(Collections.singletonList("*"));
         config.setAllowCredentials(false);
-        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
-            source.registerCorsConfiguration("/api/v1/**", config);
-        }
+        source.registerCorsConfiguration("/api/v1/**", config);
+     
         return new CorsFilter(source);
     }
 
@@ -64,8 +64,11 @@ public class SecurityConfig {
              
         http.csrf(AbstractHttpConfigurer::disable);
 
+        http.cors(Customizer.withDefaults());
+
         http.authorizeHttpRequests(req -> 
             req
+            .requestMatchers(HttpMethod.OPTIONS, PUBLIC_ENDPOINTS).permitAll()
             .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
             .requestMatchers(SWAGGER_WHITELIST).permitAll()
             .anyRequest().authenticated()
