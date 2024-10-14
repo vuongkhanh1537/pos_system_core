@@ -8,13 +8,22 @@ logging:
     org:
       springframework:
         security: DEBUG
+<<<<<<< HEAD
+=======
+        web: DEBUG
+>>>>>>> 87bfe95347eedb514acf0d66003066cae37353af
 
 spring:
   application:
-    name: POS
+    name: POS_SYSTEM
   datasource:
+<<<<<<< HEAD
     url: jdbc:sqlserver://localhost:1433;databaseName=POS_System;trustServerCertificate=true
     username: khanhvuong
+=======
+    url: jdbc:sqlserver://127.0.0.1:1433;databaseName=POS_SYSTEM;trustServerCertificate=true
+    username: kian_vuong
+>>>>>>> 87bfe95347eedb514acf0d66003066cae37353af
     password: 123456
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
@@ -35,3 +44,6 @@ spring-docs:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+jwt:
+  signerKey: "2zGEmxpC8poIcqn5FteEczdjBxl3JcvBwOOQ2iQJ6ZZJc++NyrZXZaRw/mjZ8X5D"
