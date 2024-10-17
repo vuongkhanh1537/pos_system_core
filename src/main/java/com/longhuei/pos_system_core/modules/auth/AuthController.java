@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping(EntryService.PREFIX_AUTH)
 @AllArgsConstructor
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("*")
 public class AuthController {
     private final AuthService authService;
 

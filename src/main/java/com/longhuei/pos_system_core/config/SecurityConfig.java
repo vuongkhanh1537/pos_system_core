@@ -54,7 +54,7 @@ public class SecurityConfig {
         config.addAllowedOrigin("*");
         config.setExposedHeaders(Collections.singletonList("*"));
         config.setAllowCredentials(false);
-        source.registerCorsConfiguration("/api/v1/**", config);
+        source.registerCorsConfiguration("/**", config);
      
         return new CorsFilter(source);
     }
@@ -68,10 +68,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(req -> 
             req
-            .requestMatchers(HttpMethod.OPTIONS, PUBLIC_ENDPOINTS).permitAll()
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
             .requestMatchers(SWAGGER_WHITELIST).permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         );
 
         http.oauth2ResourceServer(oauth2 -> 
