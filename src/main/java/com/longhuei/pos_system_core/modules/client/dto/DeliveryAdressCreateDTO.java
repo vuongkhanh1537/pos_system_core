@@ -1,19 +1,27 @@
 package com.longhuei.pos_system_core.modules.client.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class DeliveryAdressCreateDTO {
-        private String addressEN;
-        private String addressCHT;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String addressEN;
+    private String addressCHT;
 
-        private String consigneeEN;
-        private String consigneeCHT;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String consigneeEN;
+    private String consigneeCHT;
 
-        // @Pattern(regexp = Const.PHONENUMBER_PATTERN, message = "Phone number is invalid")
-        private String phoneNumber;
+    private String phoneNumber;
 
-        private String taxID;
+    private String taxID;
 
-        private String remark;
+    private String remark;
 }

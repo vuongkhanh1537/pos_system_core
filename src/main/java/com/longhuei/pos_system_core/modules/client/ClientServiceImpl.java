@@ -12,6 +12,8 @@ import com.longhuei.pos_system_core.modules.client.dto.ClientCreateDTO;
 import com.longhuei.pos_system_core.modules.client.dto.ClientUpdateDTO;
 import com.longhuei.pos_system_core.modules.client.dto.DeliveryAddressUpdateDTO;
 import com.longhuei.pos_system_core.modules.client.dto.DeliveryAdressCreateDTO;
+import com.longhuei.pos_system_core.modules.saler.Saler;
+import com.longhuei.pos_system_core.modules.saler.SalerRepository;
 import com.longhuei.pos_system_core.utils.enums.ClientStatus;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class ClientServiceImpl implements ClientService {
     private final DeliveryAddressRepository deliveryAddressRepository;
     private final ClientMapper clientMapper;
     private final DeliveryAddressMapper deliveryAddressMapper;
+    private final SalerRepository salerRepository;
 
     @Override
     public BaseResponse<?> create(ClientCreateDTO request) {
@@ -37,9 +40,13 @@ public class ClientServiceImpl implements ClientService {
             deliveryAddresses.add(deliveryAddress);
         });
 
+        Saler saler = this.salerRepository.findById(request.getSaler().getId()).orElseThrow(() -> new ApplicationException(ErrorCode.SALER_NOT_EXISTED));
+
         client.setDeliveryAddresses(deliveryAddresses);
+        client.setSaler(saler);
         this.clientRepository.save(client);
         this.deliveryAddressRepository.saveAll(deliveryAddresses);
+        this.salerRepository.save(saler);
 
         return new BaseResponse<>();
     }
@@ -79,6 +86,8 @@ public class ClientServiceImpl implements ClientService {
     public BaseResponse<?> updateClient(String clientId, ClientUpdateDTO request) {
         Client client = this.findClientHelper(clientId);
         this.clientMapper.updateToClient(client, request);
+        Saler saler = this.salerRepository.findById(request.getSaler().getId()).orElseThrow(() -> new ApplicationException(ErrorCode.SALER_NOT_EXISTED));
+        client.setSaler(saler);
         this.clientRepository.save(client);
         return null;
     }

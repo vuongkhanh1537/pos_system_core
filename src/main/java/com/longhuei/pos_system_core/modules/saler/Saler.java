@@ -1,19 +1,22 @@
 package com.longhuei.pos_system_core.modules.saler;
 
 import com.longhuei.pos_system_core.models.BaseEntity;
+import com.longhuei.pos_system_core.modules.client.Client;
 import com.longhuei.pos_system_core.utils.enums.WorkingStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -39,4 +42,7 @@ public class Saler extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private WorkingStatus workingStatus;
+
+    @OneToMany(mappedBy = "saler", fetch = FetchType.LAZY)
+    private List<Client> client;
 }

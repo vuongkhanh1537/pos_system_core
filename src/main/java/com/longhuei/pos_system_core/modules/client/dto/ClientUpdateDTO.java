@@ -1,5 +1,7 @@
 package com.longhuei.pos_system_core.modules.client.dto;
 
+import com.longhuei.pos_system_core.modules.saler.dto.SalerSelectDTO;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,8 +23,15 @@ public class ClientUpdateDTO {
     private String personInchargeEN;
     private String personInchargeCHT;
 
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String bankAccount;
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String bankName;
+
     private String tax;
     private String fax;
     private String line;
@@ -32,6 +41,9 @@ public class ClientUpdateDTO {
     // @Pattern(regexp = Const.PHONENUMBER_PATTERN, message = "Phone number is
     // invalid")
 
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String phoneNumber;
     private String website;
 
@@ -41,4 +53,6 @@ public class ClientUpdateDTO {
     private String country;
 
     private String remark;
+    
+    private SalerSelectDTO saler;
 }
