@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     public BaseResponse create(ProductCreateRequest request) {
         Product product = productMapper.toEntity(request);
         product = mappingProductCodeProperties(product, request);
-        if (isProductCodeAvailable(product.getProductCode())) {
+        if (isProductCodeAvailable(product.getProductId())) {
             throw new ApplicationException(ErrorCode.PRODUCT_EXISTED);
         }
         this.productRepository.save(product);

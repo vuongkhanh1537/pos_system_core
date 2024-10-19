@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ProductCreateRequest {
     @NotBlank
-    private String productCode;
+    private String productId;
     
     @NotBlank
     private String productName;

@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Product extends BaseEntity {
     @Id
-    private String productCode;
+    private String productId;
     private String productName;
     private String modelType;
     private String colorType;

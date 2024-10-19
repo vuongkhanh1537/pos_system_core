@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 public class ProductResponse {
-    private String productCode;
+    private String productId;
     private String productName;
     private String modelType;
     private String colorType;
@@ -36,7 +36,7 @@ public class ProductResponse {
     private String remark;
 
     public ProductResponse(
-        String productCode, 
+        String productId, 
         String productName, 
         String modelType, 
         String colorType, 
@@ -54,7 +54,7 @@ public class ProductResponse {
         String graphicCode, String graphicNameEN, String graphicNameCHT,
         String remark
     ) {
-        this.productCode = productCode;
+        this.productId = productId;
         this.productName = productName;
         this.modelType = modelType;
         this.colorType = colorType;

@@ -11,7 +11,7 @@ import com.longhuei.pos_system_core.modules.product.dto.ProductResponse;
 public interface ProductRepository extends JpaRepository<Product, String> {
    @Query(
     " SELECT new com.longhuei.pos_system_core.modules.product.dto.ProductResponse( " + 
-    "  p.productCode, p.productName, p.modelType, p.colorType, p.packageQuantity, p.barCode, p.status, p.stopDate, p.resumeDate, p.specialCode, " + 
+    "  p.productId, p.productName, p.modelType, p.colorType, p.packageQuantity, p.barCode, p.status, p.stopDate, p.resumeDate, p.specialCode, " + 
     "  l.code, l.nameEN, l.nameCHT, " +
     "  m.code, m.nameEN, m.nameCHT, " +
     "  ct.code, ct.nameEN, ct.nameCHT, " +
@@ -29,7 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     " LEFT JOIN p.graphicCode g " +
     " WHERE p.isDeleted = false " +
     " AND ( :keyword IS NULL OR " +
-    "  LOWER(p.productCode) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+    "  LOWER(p.productId) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
     "  OR LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
     "  OR LOWER(p.modelType) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
     "  OR LOWER(p.colorType) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
