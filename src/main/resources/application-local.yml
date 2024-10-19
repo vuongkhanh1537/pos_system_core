@@ -19,7 +19,7 @@ spring:
     name: POS_SYSTEM
   datasource:
     url: jdbc:sqlserver://localhost:1433;databaseName=POS_System;trustServerCertificate=true
-    username: khanhvuong
+    username: kian_vuong
     password: 123456
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:

@@ -9,6 +9,7 @@ import com.longhuei.pos_system_core.modules.productCodeGen.models.Graphic;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Label;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Model;
 import com.longhuei.pos_system_core.modules.productCodeGen.models.Size;
+import com.longhuei.pos_system_core.modules.productPrices.models.PriceListItem;
 import com.longhuei.pos_system_core.utils.enums.ProductStatus;
 
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,6 +40,8 @@ public class Product extends BaseEntity {
     
     private LocalDate stopDate;
     private LocalDate resumeDate;
+
+    private Long currentPriceListItemId;
 
     private String specialCode;
     

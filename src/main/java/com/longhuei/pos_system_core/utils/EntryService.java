@@ -13,4 +13,5 @@ public class EntryService {
     public static final String PREFIX_SUPPLIER = "/supplier";
     public static final String PREFIX_SALER = "/saler";
     public static final String PREFIX_CLIENT = "/client";
+    public static final String PREFIX_PRICE = "/price";
 }

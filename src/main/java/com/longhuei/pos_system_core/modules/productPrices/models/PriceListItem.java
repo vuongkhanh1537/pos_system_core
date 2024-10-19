@@ -1,5 +1,6 @@
-package com.longhuei.pos_system_core.modules.productPrices;
+package com.longhuei.pos_system_core.modules.productPrices.models;
 
+import com.longhuei.pos_system_core.models.BaseEntity;
 import com.longhuei.pos_system_core.modules.product.Product;
 
 import jakarta.persistence.Entity;
@@ -12,7 +13,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class PriceListItem {
+public class PriceListItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

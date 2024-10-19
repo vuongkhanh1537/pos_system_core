@@ -1,4 +1,4 @@
-package com.longhuei.pos_system_core.modules.productPrices;
+package com.longhuei.pos_system_core.modules.productPrices.models;
 
 import java.time.LocalDate;
 import java.util.List;

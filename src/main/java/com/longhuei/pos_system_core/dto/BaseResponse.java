@@ -16,6 +16,11 @@ public class BaseResponse<T> {
         this.code = StatusCode.CODE_SUCCESS;
     }
 
+    public BaseResponse(T wsResponse) {
+        this.code = StatusCode.CODE_SUCCESS;
+        this.wsResponse = wsResponse;
+    }
+
     public BaseResponse(String code, String message) {
         this.code = code;
         this.message = message;
