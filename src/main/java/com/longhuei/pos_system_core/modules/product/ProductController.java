@@ -1,6 +1,8 @@
 package com.longhuei.pos_system_core.modules.product;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.longhuei.pos_system_core.dto.BaseResponse;
 import com.longhuei.pos_system_core.modules.product.dto.ProductCreateRequest;
+import com.longhuei.pos_system_core.modules.product.dto.ProductSearchRequest;
 import com.longhuei.pos_system_core.modules.product.dto.ProductUpdateRequest;
 import com.longhuei.pos_system_core.utils.EntryService;
 
@@ -41,5 +44,20 @@ public class ProductController {
         @PathVariable String id
     ) {
         return this.productService.delete(id);
+    }
+
+    @PostMapping("search")
+    public BaseResponse<?> search(
+        @RequestBody ProductSearchRequest request,
+        Pageable pageable
+    ) {
+        return this.productService.search(request, pageable);
+    }
+
+    @GetMapping("checkProductCodeAvailable/{id}")
+    public BaseResponse<?> checkProductCodeAvailable(
+        @PathVariable String id
+    ) {
+        return this.productService.checkProductCodeAvailable(id);
     }
 }
