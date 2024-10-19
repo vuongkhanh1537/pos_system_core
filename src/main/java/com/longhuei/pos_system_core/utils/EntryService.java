@@ -9,5 +9,8 @@ public class EntryService {
     public static final String PREFIX_PRODUCT_COLOR = "/product/color/";
     public static final String PREFIX_PRODUCT_SIZE = "/product/size/";
     public static final String PREFIX_PRODUCT_GRAPHIC = "/product/graphic/";
-
+    public static final String PREFIX_WAREHOUSE = "/warehouse";
+    public static final String PREFIX_SUPPLIER = "/supplier";
+    public static final String PREFIX_SALER = "/saler";
+    public static final String PREFIX_CLIENT = "/client";
 }
