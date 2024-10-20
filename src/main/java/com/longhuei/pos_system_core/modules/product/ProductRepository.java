@@ -11,7 +11,7 @@ import com.longhuei.pos_system_core.modules.product.dto.ProductResponse;
 public interface ProductRepository extends JpaRepository<Product, String> {
    @Query(
     " SELECT new com.longhuei.pos_system_core.modules.product.dto.ProductResponse( " + 
-    "  p.productId, p.productName, p.modelType, p.colorType, p.packageQuantity, p.barCode, p.status, p.stopDate, p.resumeDate, p.specialCode, " + 
+    "  p.productId, p.productName, p.modelType, p.colorType, p.packageQuantity, p.barCode, p.status, p.stopDate, p.specialCode, " + 
     "  l.code, l.nameEN, l.nameCHT, " +
     "  m.code, m.nameEN, m.nameCHT, " +
     "  ct.code, ct.nameEN, ct.nameCHT, " +

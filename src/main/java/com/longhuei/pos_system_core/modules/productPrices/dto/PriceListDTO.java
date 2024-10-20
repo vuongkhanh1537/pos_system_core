@@ -13,4 +13,5 @@ public class PriceListDTO {
     private LocalDate effectiveDate;
     private CommonStatus status;
     private List<PriceListItemDTO> prices;
+    private String remark;
 }

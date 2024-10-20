@@ -1,5 +1,10 @@
 package com.longhuei.pos_system_core.modules.productPrices;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,11 +48,16 @@ public class PriceListServiceImpl implements PriceListService {
         priceList.setId(generatePriceListId());
         priceList.setStatus(CommonStatus.DRAFT);
 
+        List<PriceListItem> items = new ArrayList<>();
         for (PriceListItemDTO itemDTO : request.getPrices()) {
             PriceListItem item = priceListItemMapper.toEntity(itemDTO);
+            item.setProduct(productRepository.findById(itemDTO.getProductId()).orElseThrow(
+                () -> new ApplicationException(ErrorCode.PRODUCT_NOT_EXISTED)
+            ));
             item.setPriceList(priceList);
-            priceList.getPrices().add(item);
+            items.add(item);
         }
+        priceList.setPrices(items);
 
         priceListRepository.save(priceList);
 
@@ -60,21 +70,27 @@ public class PriceListServiceImpl implements PriceListService {
         PriceList priceList = priceListRepository.findById(request.getId()).orElseThrow(
                 () -> new ApplicationException(ErrorCode.NOT_FOUND)
         );
+
         priceListMapper.update(priceList, request);
-        priceList.getPrices().stream().forEach(
-            item -> item.setDeleted(Const.ACTIVE)
-        );
-        for (PriceListItemDTO itemDTO : request.getPrices()) {
+        priceList.getPrices().stream().forEach(item -> item.setDeleted(Const.ACTIVE));
+        
+        Map<Long, PriceListItem> itemMap = priceList.getPrices().stream()
+            .collect(Collectors.toMap(PriceListItem::getId, item -> item));
+
+        for (PriceListItemDTO itemDTO : request.getPrices()) { 
             if (itemDTO.getId() == null) {
                 PriceListItem item = priceListItemMapper.toEntity(itemDTO);
+                item.setProduct(productRepository.findById(itemDTO.getProductId()).orElseThrow(
+                () -> new ApplicationException(ErrorCode.PRODUCT_NOT_EXISTED)
+                ));
                 item.setPriceList(priceList);
                 priceList.getPrices().add(item);
             } else {
-                PriceListItem item = priceListItemRepository.findById(itemDTO.getId()).orElseThrow(
-                    () -> new ApplicationException(ErrorCode.NOT_FOUND)
-                );
-                priceListItemMapper.update(item, itemDTO);
-                item.setDeleted(Const.INACTIVE);
+                PriceListItem item = itemMap.get(itemDTO.getId());
+                if (item != null) {
+                    priceListItemMapper.update(item, itemDTO);
+                    item.setDeleted(Const.INACTIVE);
+                }
             }
         }
         this.priceListRepository.save(priceList);
@@ -104,11 +120,15 @@ public class PriceListServiceImpl implements PriceListService {
             () -> new ApplicationException(ErrorCode.NOT_FOUND)
         );
         priceList.setStatus(CommonStatus.COMPLETED);
+        List<Product> products = new ArrayList<>();
         for (PriceListItem item : priceList.getPrices()) {
-            Product product = item.getProduct();
-            product.setCurrentPriceListItemId(item.getId());
-            productRepository.save(product);
+            if (!item.isDeleted()) {
+                Product product = item.getProduct();
+                product.setCurrentPriceListItemId(item.getId());
+                products.add(product);
+            }
         }
+        productRepository.saveAll(products);
         return new BaseResponse<>();
     }
 
@@ -118,11 +138,24 @@ public class PriceListServiceImpl implements PriceListService {
             () -> new ApplicationException(ErrorCode.NOT_FOUND)
         );
         PriceListDTO dto = priceListMapper.toDTO(priceList);
+        dto.setPrices(priceList.getPrices().stream()
+            .filter(item -> !item.isDeleted())
+            .map(item -> {
+                PriceListItemDTO itemDTO = priceListItemMapper.toDTO(item);
+                itemDTO.setProductId(item.getProduct().getProductId());
+                return itemDTO;
+            })
+            .toList()
+        );
         return new BaseResponse<>(dto);
     }
 
     private String generatePriceListId() {
         PriceListSequence sequence = sequenceRepository.getSequenceForUpdate();
+        if (sequence == null) {
+            sequence = new PriceListSequence();
+            sequence.setNextVal(1);
+        }
         Integer nextVal = sequence.getNextVal();
         sequence.setNextVal(nextVal + 1);
         sequenceRepository.save(sequence);

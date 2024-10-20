@@ -23,7 +23,6 @@ public class ProductResponse {
     private ProductStatus status;    
 
     private LocalDate stopDate;
-    private LocalDate resumeDate;
 
     private LabelDto label;
     private ModelDto model;
@@ -44,7 +43,6 @@ public class ProductResponse {
         String barCode, 
         ProductStatus status, 
         LocalDate stopDate, 
-        LocalDate resumeDate, 
         String specialCode,
         String labelCode, String labelNameEN, String labelNameCHT,
         String modelCode, String modelNameEN, String modelNameCHT,
@@ -62,7 +60,6 @@ public class ProductResponse {
         this.barCode = barCode;
         this.status = status;
         this.stopDate = stopDate;
-        this.resumeDate = resumeDate;
         this.specialCode = specialCode;
         this.label = new LabelDto(labelCode, labelNameEN, labelNameCHT);
         this.model = new ModelDto(modelCode, modelNameEN, modelNameCHT);

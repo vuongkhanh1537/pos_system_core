@@ -71,7 +71,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
             .requestMatchers(SWAGGER_WHITELIST).permitAll()
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
         );
 
         http.oauth2ResourceServer(oauth2 -> 

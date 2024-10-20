@@ -11,6 +11,9 @@ import com.longhuei.pos_system_core.modules.productPrices.models.PriceList;
 public interface PriceListMapper {
     @Mapping(target = "prices", ignore = true)
     PriceList toEntity(PriceListDTO request);
+
     PriceListDTO toDTO(PriceList entity);
+
+    @Mapping(target = "prices", ignore = true)
     void update(@MappingTarget PriceList entity, PriceListDTO request);
 }

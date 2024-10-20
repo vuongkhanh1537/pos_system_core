@@ -8,4 +8,5 @@ public class PriceListItemDTO {
     private String productId;
     private Double buyPrice;
     private Double sellPrice;
+    private Double remark;
 }
